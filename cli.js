@@ -17,6 +17,12 @@ program.command('init').description('Create your access file.').action(function 
     token.createFile();
 });
 
+// labview help command
+program.command('help').description('Help with other commands.').action(function () {
+    console.log("lablook init - will ask you for your Gitlab username and access token and create your access file");
+    console.log("lablook - will run the program");
+});
+
 // Parse commander commands
 program.parse(process.argv);
 
