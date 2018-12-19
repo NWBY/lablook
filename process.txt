@@ -1,5 +1,0 @@
-1. Look for user file, check if the .access-token.json file exists:
-    - IF it does then read the files and pass the value into the build url function that passes that url to axios function
-    - ELSE get the user to input their token, then create the file and write to it
-        - Then read the file and pass it into the build url function and pass that into the axios function
-2. Once either is complete call the axios get function
