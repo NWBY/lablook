@@ -1,7 +1,7 @@
 {
   "name": "lablook",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "CLI tool that allows you to view your Gitlab projects from the command line.",
   "main": "cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,5 +14,8 @@
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "readline-sync": "^1.4.9"
+  },
+  "bin": {
+    "lablook": "./cli.js"
   }
 }
