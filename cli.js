@@ -19,14 +19,10 @@ program.command('init').description('Create your access file.').action(function 
 
 // labview help command
 program.command('help').description('Help with other commands.').action(function () {
-    console.log("lablook init - will ask you for your Gitlab username and access token and create your access file");
-    console.log("lablook - will run the program");
+    console.log(chalk.bold.whiteBright("lablook init ") + "- will ask you for your Gitlab username and access token and create your access file");
+    console.log(chalk.bold.whiteBright("lablook go ") + "- will run the program");
+    console.log(chalk.bold.whiteBright("lablook help ") + "- will provide helpful commands for using the program");
 });
-
-// Parse commander commands
-program.parse(process.argv);
-
-
 
 // Global variable that stores user's username and access token
 let user_id;
@@ -61,26 +57,36 @@ let config = {
 }
 
 // Axios function call that gets all project names.
-axios.get(projectsUrl, config).then(response => {
-    console.log("");
-    console.log(chalk.bold.whiteBright("-----------------------------------------------------------------------------------"));
-    console.log(chalk.bold.green("Projects"));
-    console.log(chalk.bold.whiteBright("-----------------------------------------------------------------------------------"));
-    // Loops through the response and displays project names.
-    let i = 0;
-    while (i < response.data.length) {
-        console.log(chalk.bold.whiteBright(response.data[i].name));
-        i++;
-    };
-    console.log("");
-}).catch((error) => {
-    if (error instanceof TypeError) {
-        return;
-    } else if (error.response.status == 401) {
-        console.log(chalk.bold.yellow("Your Gitlab username may be correct. But I think your access token is incorrect. Run labview init and enter your details again."));
-    } else if (error.response.status == 404) {
-        console.log(chalk.bold.yellow("Ah an error! Your Gitlab credentials may be incorrect. Run labview init and enter your details again."));
-    } else {
-        console.log(error);
-    }
+function axiosCall() {
+    axios.get(projectsUrl, config).then(response => {
+        console.log("");
+        console.log(chalk.bold.whiteBright("-----------------------------------------------------------------------------------"));
+        console.log(chalk.bold.green("Projects"));
+        console.log(chalk.bold.whiteBright("-----------------------------------------------------------------------------------"));
+        // Loops through the response and displays project names.
+        let i = 0;
+        while (i < response.data.length) {
+            console.log(chalk.bold.whiteBright(response.data[i].name));
+            i++;
+        };
+        console.log("");
+    }).catch((error) => {
+        if (error instanceof TypeError) {
+            return;
+        } else if (error.response.status == 401) {
+            console.log(chalk.bold.yellow("Your Gitlab username may be correct. But I think your access token is incorrect. Run labview init and enter your details again."));
+        } else if (error.response.status == 404) {
+            console.log(chalk.bold.yellow("Ah an error! Your Gitlab credentials may be incorrect. Run labview init and enter your details again."));
+        } else {
+            console.log(error);
+        }
+    });
+}
+
+// labview go command
+program.command('go').description('Run the program').action(function () {
+    axiosCall();
 });
+
+// Parse commander commands
+program.parse(process.argv);
