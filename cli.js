@@ -12,7 +12,7 @@ const token = require('./lib/token');
 // Path to .gitlab-token file
 const pathToFile = os.homedir() + '/.gitlab-token.json';
 
-program.version('0.2.1');
+program.version('0.1.1');
 
 // labview init command
 program.command('init').description('Create your access file.').action(function () {
